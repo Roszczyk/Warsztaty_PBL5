@@ -127,13 +127,13 @@ void addToTable(struct table_node * table, int value)
     struct table_node temp2;
     int i=1;
     temp1=table[0];
-        do
+    while(table[i].in_use == 1 && i<RANGE)
     {
-        temp2 = table[i];
-        table[i] = temp1;
+        temp2 = table[i+1];
+        table[i+1] = temp1;
         temp1=temp2;
         i++;
-    }     while(table[i-1].in_use == 1 && i<RANGE);
+    }
     table[0].value = value;
     table[0].in_use = 1;
 }
@@ -240,6 +240,8 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     // #### podmienić val i val2
 	val=countAVG(TABLE);
 	val2=countStdDev(TABLE);
+
+	printf("b4sending: avg %d stddev %d\n", val, val2);
 
     memcpy(binaryData, &val, 4);
     memcpy(binaryData+4, &val2, 4);
