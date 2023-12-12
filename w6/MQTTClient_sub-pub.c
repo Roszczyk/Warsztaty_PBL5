@@ -178,7 +178,7 @@ int pub_mean_sd (const char *payload)
 
     printf("Waiting for up to %d seconds for publication of %s\n"
             "on topic %s for client with ClientID: %s\n",
-            (int)(TIMEOUT/1000), PAYLOAD, TOPIC_DOWN, CLIENTID);
+            (int)(TIMEOUT/1000), payload, TOPIC_DOWN, CLIENTID);
     rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
     printf("Message with delivery token %d delivered\n", token);
 
@@ -204,8 +204,8 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
 	uint32_t val2 = 0;
 	struct table_node TABLE[RANGE];
     printf("Message arrived\n");
-    printf("     topic: %s\n", topicName);
-    printf("   message: %.*s\n\n\n", message->payloadlen, (char*)message->payload);
+    //printf("     topic: %s\n", topicName);
+    //printf("   message: %.*s\n\n\n", message->payloadlen, (char*)message->payload);
 
     struct json_object *jobj;
     jobj = json_tokener_parse((char*)message->payload);
@@ -245,7 +245,6 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     memcpy(binaryData+4, &val2, 4);
 
     char *base64String = binaryToBase64(binaryData, 8);
-    // Prints "Hello world!" on hello_world
     sprintf(payload, "{ \"downlinks\": [{ \"f_port\": 15, \"frm_payload\": \"%s\", \"priority\": \"NORMAL\" }] }", base64String );
 	printf("%s\n", payload);
     pub_mean_sd(payload);
