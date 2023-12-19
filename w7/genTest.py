@@ -3,7 +3,7 @@
 import numpy as np 
 import sys
 import os
-from testrunner import run
+# from testrunner import run
 
 OUTSIDE=0
 BEFORE=1
@@ -40,9 +40,9 @@ def genIll():
     if option==0:
         string = correct + usedbr[1]
     if option==1:
-        string.lstrip(correct[0])
+        string=correct.lstrip(correct[0])
     if option==2:
-        string.rstrip(correct[len(correct)-1])
+        string=correct.rstrip(correct[len(correct)-1])
     if option==3:
         string = correct + usedbr[0]
     if option==4:
@@ -52,12 +52,21 @@ def genIll():
 
 def testfunc(child):
     for i in range(100):
-        child.sendline(genTest())
+        child.sendline(f"pair_brackets {genTest()}")
         child.expect_exact("GOOD")
     for i in range(100):
-        child.sendline(genIll())
+        child.sendline(f"pair_brackets {genIll()}")
         child.expect_exact("BAD")
 
 
-if __name__ == "__main__":
-    sys.exit(run(testfunc))
+def testtest():
+    for i in range(100):
+        print(f"pair_brackets {genTest()}")
+    for i in range(100):
+        print(f"pair_brackets {genIll()}")
+
+
+# if __name__ == "__main__":
+#     sys.exit(run(testfunc))
+        
+testtest()
