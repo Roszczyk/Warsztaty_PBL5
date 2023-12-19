@@ -3,7 +3,7 @@
 import numpy as np 
 import sys
 import os
-# from testrunner import run
+from testrunner import run
 
 OUTSIDE=0
 BEFORE=1
@@ -59,14 +59,5 @@ def testfunc(child):
         child.expect_exact("BAD")
 
 
-def testtest():
-    for i in range(100):
-        print(f"pair_brackets {genTest()}")
-    for i in range(100):
-        print(f"pair_brackets {genIll()}")
-
-
-# if __name__ == "__main__":
-#     sys.exit(run(testfunc))
-        
-testtest()
+if __name__ == "__main__":
+    sys.exit(run(testfunc))
