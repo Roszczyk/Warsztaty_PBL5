@@ -36,16 +36,17 @@ if __name__ == '__main__':
     client.on_publish = on_publish
 
     # Connect to the MQTT broker
-    client.username_pw_set("piotr", "piotr")
+    client.username_pw_set("rw", "readwrite")
 
     # Connect to the MQTT broker
     # Replace with your MQTT broker address and port
     # client.connect("10.6.84.118", 1883)
-    client.connect("broker.hivemq.com", 1883)
+    client.connect("test.mosquitto.org", 1884)
 
     # Publish a message to a topic
-    topic = "PAM-PBL5/your/topic"
+    # topic = "PAM-PBL5/your/topic"
     # topic = "t2"
+    topic = "PAM-PBL5-CATCHER"
 
     # Subscribe to the topic
     # client.subscribe("pam/+")
@@ -55,7 +56,8 @@ if __name__ == '__main__':
     try:
         while True:
             time.sleep(2)
-            message = random_integer()
+            # message = random_integer()
+            message = 'catch me'
             client.publish(topic, message)
     except KeyboardInterrupt:
         client.disconnect()

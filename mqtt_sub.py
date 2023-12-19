@@ -36,15 +36,15 @@ if __name__ == '__main__':
     client.on_publish = on_publish
 
     # Connect to the MQTT broker
-    client.username_pw_set("piotr", "piotr")
+    client.username_pw_set("rw", "readwrite")
 
     # Connect to the MQTT broker
     # Replace with your MQTT broker address and port
-    client.connect("10.6.84.118", 1883)
+    client.connect("test.mosquitto.org", 1884)
 
     # Publish a message to a topic
     topic = "t2"
 
     # Subscribe to the topic
-    client.subscribe("#")
+    client.subscribe("PAM-PBL5-CATCHER")
     client.loop_forever()
