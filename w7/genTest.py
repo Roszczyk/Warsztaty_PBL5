@@ -18,7 +18,6 @@ def chooseBrackets():
 
 
 def genTest():
-    testing_positions=[OUTSIDE, BEFORE, AFTER]
     choose_positions=np.random.randint(0,2)
 
     testing_brackets=chooseBrackets()
