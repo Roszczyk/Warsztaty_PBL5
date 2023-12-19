@@ -1,10 +1,30 @@
+#!/usr/bin/env python3
+
 import sys
 import os
-from testrunner import run 
+from testrunner import run
 
 def testfunc(child):
-    child.sendline("")
-    child.expect_exact(">")
+    child.sendline("pair_brackets \(a+b\)")
+    child.expect_exact("GOOD")
+    child.sendline("pair_brackets \((a+b\)")
+    child.expect_exact("BAD")
+    child.sendline("pair_brackets \(a+b\))")
+    child.expect_exact("BAD")
+    child.sendline("pair_brackets \{a+b\}")
+    child.expect_exact("GOOD")
+    child.sendline("pair_brackets \{(a+b\)}")
+    child.expect_exact("GOOD")
+    child.sendline("pair_brackets \{a+b\)")
+    child.expect_exact("BAD")
+    child.sendline("pair_brackets \[a+b")
+    child.expect_exact("BAD")
+    child.sendline("pair_brackets \({{{a+b\})")
+    child.expect_exact("BAD")
+    child.sendline("pair_brackets a+b")
+    child.expect_exact("GOOD")
+    child.sendline("pair_brackets {{a+b}")
+    child.expect_exact("BAD")
 
     print("Benchmark was successful")
 
